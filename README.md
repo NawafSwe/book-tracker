@@ -1,4 +1,16 @@
 # MyReads Project
+# this is a project for book reading tracker thats allows you to track your books that you wants to read or you are reading now
+# or even in the future
+* this project used react components and used the core of it where you minimize the code of html and you write just java script
+* uses the core of es6 java script
+* uses jsx syntax where it allows you to embed html code into java script code
+
+# How to start the project ? 
+follow below the instructions to run the app locally
+
+* first make sure you have node js in your machine 
+* run the command `npm i ` 
+* after that run the command `npm start` if you one who uses yarn you can exchange the work `npm` with `yarn`
 
 This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
 

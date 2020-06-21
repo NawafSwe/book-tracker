@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import propTypes from 'prop-types';
+import * as BooksAPI from './BooksAPI'
 
 export default class SearchBooks extends Component {
     state = {
@@ -31,6 +32,7 @@ searchHandler = (query)=>{
         let currentBooks = query === '' ? '' : 
         books.filter(book => (book.title.toLowerCase().includes( query.toLocaleLowerCase() )
         ));
+
         return (
             <div className="search-books">
             <div className="search-books-bar">
@@ -49,6 +51,7 @@ searchHandler = (query)=>{
 
               ( <ol className="books-grid">
                  {currentBooks.map((book) => (
+                
                 <li key={book.id}>
                   <div className="book">
                     <div className="book-top">
@@ -57,8 +60,7 @@ searchHandler = (query)=>{
                         style={{
                           width: 128,
                           height: 193,
-                          backgroundImage:
-                            'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")',
+                          backgroundImage:`url(${book.imageLinks.smallThumbnail? book.imageLinks.smallThumbnail :  book.imageLinks.thumbnail })`,
                         }}
                       />
                       <div className="book-shelf-changer">
