@@ -6,32 +6,37 @@ import * as BooksAPI from './BooksAPI'
 export default class SearchBooks extends Component {
     state = {
         query: '',
+        searchedBooks:[],
+     
     }
     //checking the props 
     static propTypes = {
-      books: propTypes.array.isRequired,
-      updateShelf: propTypes.func.isRequired,
+      addBook: propTypes.func.isRequired,
      }
- 
-searchHandler = (query)=>{
+    
+
+searchHandler =  (query)=>{
     this.setState(()=>({
-        query: query.trim(),
-    }))
-  }
-   shelfHandler =  (book,event)=>{
-    event.preventDefault()
-    this.props.updateShelf(book,event.target.value);
-
-  }
-
-    render() {
-        const {query} = this.state;
-        const {books} = this.props;
+        query: query,
        
+        
+    }))}
 
-        let currentBooks = query === '' ? '' : 
-        books.filter(book => (book.title.toLowerCase().includes( query.toLocaleLowerCase() )
-        ));
+  handleUpdateQuery(query) {
+      BooksAPI.search(query).then(searchedBooks => searchedBooks ? this.setState({ searchedBooks }) : []);
+      this.setState({ query });
+      }
+
+  addNewBookHandler = (book,event)=>{
+    event.preventDefault();
+    this.props.addBook(book);
+  }
+
+   
+    render() {
+     const {query} = this.state;
+     const {searchedBooks} = this.state;
+
 
         return (
             <div className="search-books">
@@ -44,13 +49,18 @@ searchHandler = (query)=>{
 
               </div>
             </div>
+
+            
+
+            
+            
             <div className="search-books-results">
               {
               //checking if there are books if not null 
-              currentBooks.length>0? 
-
+              searchedBooks.length > 0 ? 
+              
               ( <ol className="books-grid">
-                 {currentBooks.map((book) => (
+                 {searchedBooks.map((book) => (
                 
                 <li key={book.id}>
                   <div className="book">
@@ -64,7 +74,7 @@ searchHandler = (query)=>{
                         }}
                       />
                       <div className="book-shelf-changer">
-                        <select value={book.shelf} onChange={(event)=>this.shelfHandler(book,event)}>
+                        <select value={book.shelf} onChange={(event)=>this.addNewBookHandler(book,event)}>
                           <option key={1} value="move" disabled>
                             Move to...
                           </option>

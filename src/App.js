@@ -21,7 +21,11 @@ class  BooksApp extends React.Component {
     } )
   }
 
-  
+  addBook = (book)=>{
+    this.setState((previousState)=>({
+      books: [...previousState.books,book]
+    }) )
+  }
 
   render() {
 
@@ -76,7 +80,7 @@ class  BooksApp extends React.Component {
      <Route
         exact path='/search'
         render={()=>(
-            <SearchBooks books={this.state.books} updateShelf={updateShelf}/> 
+            <SearchBooks addBook={this.addBook}/> 
           )
         
       }
